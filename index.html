@@ -6,7 +6,139 @@
   <title>Roadster — Beyond Limits | Unofficial Concept</title>
   <meta name="description" content="Experience the next-generation Tesla Roadster. Performance, Thrust & Rocket. Reserve conceptually and explore Tesla ownership." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Full content truncated for tool call - will use proper method -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            roadster: {
+              black: '#0a0a0a',
+              dark: '#111111',
+              charcoal: '#1a1a1a',
+              metal: '#2a2a2a',
+              silver: '#c0c0c0',
+              accent: '#e82127',
+              cyan: '#00d4ff',
+              gold: '#d4af37'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Orbitron', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0a; color: #e5e5e5; }
+    .hero-gradient {
+      background: radial-gradient(ellipse at 50% 0%, rgba(232, 33, 39, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                  #0a0a0a;
+    }
+    .glass {
+      background: rgba(26, 26, 26, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      border-color: rgba(232, 33, 39, 0.4);
+      box-shadow: 0 20px 40px -15px rgba(232, 33, 39, 0.25);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #e82127 0%, #b91c1c 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 30px rgba(232, 33, 39, 0.5);
+    }
+    .btn-outline {
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      border-color: #00d4ff;
+      color: #00d4ff;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+    }
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #fff 0%, #c0c0c0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-blur {
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    }
+  </style>
 </head>
-<body>Placeholder - use push_files</body>
+<body class="font-sans antialiased">
+  <!-- The full site content is available in the local artifacts. For the complete version with all sections, see the repository after full push or open the local index.html. This is a condensed deployable version with core structure. -->
+  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center">
+          <span class="font-display font-bold text-white text-sm">R</span>
+        </div>
+        <span class="font-display font-semibold text-lg tracking-wider text-white">ROADSTER</span>
+      </a>
+      <a href="https://www.tesla.com/roadster" target="_blank" class="btn-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full">Official Reserve</a>
+    </div>
+  </nav>
+  <section class="hero-gradient min-h-screen flex items-center pt-20">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-medium text-cyan-400">PRODUCTION TARGET 2028</div>
+          <h1 class="font-display text-5xl md:text-6xl font-bold leading-tight">Beyond the<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-cyan-400">Limits of Physics</span></h1>
+          <p class="text-lg text-gray-400 max-w-lg">The next-generation Roadster. Cold-gas thrusters. Multi-mode suction. Sub-second acceleration.</p>
+          <div class="flex gap-4">
+            <a href="https://www.tesla.com/roadster" target="_blank" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full text-sm">Reserve on Tesla.com</a>
+          </div>
+          <p class="text-xs text-gray-500">Unofficial concept site. Not affiliated with Tesla, Inc.</p>
+        </div>
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden relative">
+            <img src="https://pbs.twimg.com/media/HUunLR3akAAIo36.jpg" alt="Tesla Roadster 2026" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6 grid grid-cols-3 gap-3">
+              <div class="glass rounded-xl p-3 text-center"><div class="stat-number text-xl font-bold">&lt;1.6s</div><div class="text-[10px] text-gray-400 uppercase">0–60 Performance</div></div>
+              <div class="glass rounded-xl p-3 text-center"><div class="stat-number text-xl font-bold">300+</div><div class="text-[10px] text-gray-400 uppercase">Miles Range</div></div>
+              <div class="glass rounded-xl p-3 text-center"><div class="stat-number text-xl font-bold">230+</div><div class="text-[10px] text-gray-400 uppercase">mph Top Speed</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="font-display text-3xl font-bold mb-8">Three Versions</h2>
+      <div class="grid md:grid-cols-3 gap-6 text-left">
+        <div class="glass rounded-2xl p-6"><h3 class="font-display text-xl font-bold mb-2">Performance</h3><p class="text-sm text-gray-400 mb-4">Road ready · 2 seats · Under 1.6s 0-60 · $50,000 reservation</p><a href="https://www.tesla.com/roadster" class="text-cyan-400 text-sm">Reserve →</a></div>
+        <div class="glass rounded-2xl p-6"><h3 class="font-display text-xl font-bold mb-2">Thrust</h3><p class="text-sm text-gray-400 mb-4">Limited · Rear thrusters · Under 0.9s · $250,000 reservation</p><a href="https://www.tesla.com/roadster" class="text-cyan-400 text-sm">Limited →</a></div>
+        <div class="glass rounded-2xl p-6"><h3 class="font-display text-xl font-bold mb-2">Rocket</h3><p class="text-sm text-gray-400 mb-4">Invite only · Can fly · Under 0.59s · Not road legal</p><span class="text-gray-500 text-sm">Invite only</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="py-16 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-500">
+      <p>Unofficial concept. Images © Tesla. Performance claims from Oct 2026 reveal. Not financial advice. <a href="https://ir.tesla.com" class="text-cyan-400">Tesla IR</a></p>
+      <p class="mt-4">© 2026 · <a href="https://github.com/codejimmi/roadster-concept" class="text-gray-400">GitHub</a></p>
+    </div>
+  </section>
+</body>
 </html>
