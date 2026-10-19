@@ -25,12 +25,28 @@
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
             display: ['Orbitron', 'Inter', 'sans-serif']
+          },
+          animation: {
+            'fade-in': 'fadeIn 1s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
           }
         }
       }
     }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
@@ -45,7 +61,9 @@
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
     .card-hover:hover {
       transform: translateY(-8px);
       border-color: rgba(232, 33, 39, 0.4);
@@ -83,62 +101,576 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
     }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #e82127; }
   </style>
 </head>
 <body class="font-sans antialiased">
-  <!-- The full site content is available in the local artifacts. For the complete version with all sections, see the repository after full push or open the local index.html. This is a condensed deployable version with core structure. -->
-  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center">
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-roadster-accent to-red-800 flex items-center justify-center">
           <span class="font-display font-bold text-white text-sm">R</span>
         </div>
-        <span class="font-display font-semibold text-lg tracking-wider text-white">ROADSTER</span>
+        <span class="font-display font-semibold text-lg tracking-wider text-white group-hover:text-roadster-cyan transition">ROADSTER</span>
       </a>
-      <a href="https://www.tesla.com/roadster" target="_blank" class="btn-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full">Official Reserve</a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+        <a href="#performance" class="hover:text-white transition">Performance</a>
+        <a href="#trims" class="hover:text-white transition">Trims</a>
+        <a href="#reserve" class="hover:text-white transition">Reserve</a>
+        <a href="#shares" class="hover:text-white transition">Shares</a>
+        <a href="#timeline" class="hover:text-white transition">Timeline</a>
+      </div>
+      <a href="#reserve" class="btn-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full">
+        Reserve
+      </a>
     </div>
   </nav>
-  <section class="hero-gradient min-h-screen flex items-center pt-20">
-    <div class="max-w-7xl mx-auto px-6 w-full">
+
+  <!-- Hero -->
+  <section id="hero" class="hero-gradient min-h-screen flex items-center relative overflow-hidden pt-20">
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-roadster-accent rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-roadster-cyan rounded-full blur-[100px]"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="space-y-8">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-medium text-cyan-400">PRODUCTION TARGET 2028</div>
-          <h1 class="font-display text-5xl md:text-6xl font-bold leading-tight">Beyond the<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-cyan-400">Limits of Physics</span></h1>
-          <p class="text-lg text-gray-400 max-w-lg">The next-generation Roadster. Cold-gas thrusters. Multi-mode suction. Sub-second acceleration.</p>
-          <div class="flex gap-4">
-            <a href="https://www.tesla.com/roadster" target="_blank" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full text-sm">Reserve on Tesla.com</a>
+        <div class="space-y-8 animate-slide-up">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-medium text-roadster-cyan tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-roadster-cyan animate-pulse"></span>
+            PRODUCTION TARGET 2028
           </div>
-          <p class="text-xs text-gray-500">Unofficial concept site. Not affiliated with Tesla, Inc.</p>
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+            Beyond the<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-roadster-accent via-red-400 to-roadster-cyan">Limits of Physics</span>
+          </h1>
+          <p class="text-lg text-gray-400 max-w-lg leading-relaxed">
+            The next-generation Roadster. Cold-gas thrusters. Multi-mode suction. Sub-second acceleration. 
+            A halo machine engineered to rewrite every performance record.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#reserve" class="btn-primary text-white font-semibold px-8 py-3.5 rounded-full text-sm tracking-wide">
+              Reserve Performance
+            </a>
+            <a href="#performance" class="btn-outline text-white font-medium px-8 py-3.5 rounded-full text-sm tracking-wide">
+              Explore Specs
+            </a>
+          </div>
+          <p class="text-xs text-gray-500 max-w-md">
+            Unofficial concept site. Not affiliated with Tesla, Inc. All figures are manufacturer claims as of October 2026.
+          </p>
         </div>
-        <div class="relative">
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden relative">
+
+        <!-- Hero visual with real images -->
+        <div class="relative animate-fade-in">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden relative shadow-2xl shadow-red-900/20">
             <img src="https://pbs.twimg.com/media/HUunLR3akAAIo36.jpg" alt="Tesla Roadster 2026" class="w-full h-full object-cover" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+            <!-- Floating stats -->
             <div class="absolute bottom-6 left-6 right-6 grid grid-cols-3 gap-3">
-              <div class="glass rounded-xl p-3 text-center"><div class="stat-number text-xl font-bold">&lt;1.6s</div><div class="text-[10px] text-gray-400 uppercase">0–60 Performance</div></div>
-              <div class="glass rounded-xl p-3 text-center"><div class="stat-number text-xl font-bold">300+</div><div class="text-[10px] text-gray-400 uppercase">Miles Range</div></div>
-              <div class="glass rounded-xl p-3 text-center"><div class="stat-number text-xl font-bold">230+</div><div class="text-[10px] text-gray-400 uppercase">mph Top Speed</div></div>
+              <div class="glass rounded-xl p-3 text-center">
+                <div class="stat-number text-xl font-bold"><1.6s</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">0–60 Performance</div>
+              </div>
+              <div class="glass rounded-xl p-3 text-center">
+                <div class="stat-number text-xl font-bold">300+</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Miles Range</div>
+              </div>
+              <div class="glass rounded-xl p-3 text-center">
+                <div class="stat-number text-xl font-bold">230+</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">mph Top Speed</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <section class="py-24">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <h2 class="font-display text-3xl font-bold mb-8">Three Versions</h2>
-      <div class="grid md:grid-cols-3 gap-6 text-left">
-        <div class="glass rounded-2xl p-6"><h3 class="font-display text-xl font-bold mb-2">Performance</h3><p class="text-sm text-gray-400 mb-4">Road ready · 2 seats · Under 1.6s 0-60 · $50,000 reservation</p><a href="https://www.tesla.com/roadster" class="text-cyan-400 text-sm">Reserve →</a></div>
-        <div class="glass rounded-2xl p-6"><h3 class="font-display text-xl font-bold mb-2">Thrust</h3><p class="text-sm text-gray-400 mb-4">Limited · Rear thrusters · Under 0.9s · $250,000 reservation</p><a href="https://www.tesla.com/roadster" class="text-cyan-400 text-sm">Limited →</a></div>
-        <div class="glass rounded-2xl p-6"><h3 class="font-display text-xl font-bold mb-2">Rocket</h3><p class="text-sm text-gray-400 mb-4">Invite only · Can fly · Under 0.59s · Not road legal</p><span class="text-gray-500 text-sm">Invite only</span></div>
+
+  <div class="section-divider"></div>
+
+  <!-- Performance Highlights -->
+  <section id="performance" class="py-24 bg-roadster-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Engineered for the Extreme</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Suction downforce that holds the car upside down. Cold-gas thrusters that defy traction limits. A powertrain that delivers over a megawatt.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div class="glass rounded-2xl p-6 card-hover">
+          <div class="text-roadster-cyan text-sm font-medium mb-3">POWER</div>
+          <div class="stat-number text-3xl font-bold mb-2">1+ MW</div>
+          <p class="text-sm text-gray-400">~1,340+ hp on higher trims. Dual rear motors with individual inverters for torque vectoring.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 card-hover">
+          <div class="text-roadster-cyan text-sm font-medium mb-3">SUCTION</div>
+          <div class="stat-number text-3xl font-bold mb-2">2g+</div>
+          <p class="text-sm text-gray-400">Multi-mode fan & ground-sealing system generates massive downforce — even at zero speed.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 card-hover">
+          <div class="text-roadster-cyan text-sm font-medium mb-3">THRUSTERS</div>
+          <div class="stat-number text-3xl font-bold mb-2">SpaceX</div>
+          <p class="text-sm text-gray-400">Cold-gas thrusters (compressed air). Up to 10 nozzles on Rocket. Sub-second 0–60 capability.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 card-hover">
+          <div class="text-roadster-cyan text-sm font-medium mb-3">RANGE</div>
+          <div class="stat-number text-3xl font-bold mb-2">300+</div>
+          <p class="text-sm text-gray-400">Miles on a single charge. High-voltage architecture (800–1,000 V) with rapid charging support.</p>
+        </div>
+      </div>
+
+      <!-- Image gallery -->
+      <div class="grid md:grid-cols-3 gap-4 mb-16">
+        <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+          <img src="https://pbs.twimg.com/media/HUunLRwakAAyOMg.jpg" alt="Roadster side profile" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+          <img src="https://pbs.twimg.com/media/HUunLR1bIAA9t0W.jpg" alt="Roadster rear with thrusters" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+          <img src="https://pbs.twimg.com/media/HUunLR4bAAA4xSf.jpg" alt="Roadster detail" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+      </div>
+
+      <!-- Key tech cards -->
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-8 card-hover">
+          <h3 class="font-display text-xl font-semibold mb-4 text-white">Active Aerodynamics</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Adaptive rear wing and multi-mode suction system. High-downforce or low-drag modes selectable. Track Mode lowers the car and transforms suspension behavior.
+          </p>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> Zero-speed downforce</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> Optimus-actuated wing</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> Steer-by-wire system</li>
+          </ul>
+        </div>
+        <div class="glass rounded-2xl p-8 card-hover">
+          <h3 class="font-display text-xl font-semibold mb-4 text-white">Cold-Gas Thrusters</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Compressed-air thrusters inspired by SpaceX technology. Rechargeable onboard. Deliver thrust beyond tire traction limits for acceleration, stability, and (on Rocket) brief flight capability.
+          </p>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> ~600 L air capacity (Rocket)</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> Micro-second adjustments</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> Self-recharging tanks</li>
+          </ul>
+        </div>
+        <div class="glass rounded-2xl p-8 card-hover">
+          <h3 class="font-display text-xl font-semibold mb-4 text-white">Powertrain</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">
+            Rear-wheel-drive dual-motor layout. Each motor has its own inverter enabling precise torque vectoring. High-power battery pack optimized for sustained output and fast charging.
+          </p>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> 800–1,000 V architecture</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> ~1 MW peak output</li>
+            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-roadster-accent"></span> Rapid Supercharging</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
-  <section class="py-16 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-500">
-      <p>Unofficial concept. Images © Tesla. Performance claims from Oct 2026 reveal. Not financial advice. <a href="https://ir.tesla.com" class="text-cyan-400">Tesla IR</a></p>
-      <p class="mt-4">© 2026 · <a href="https://github.com/codejimmi/roadster-concept" class="text-gray-400">GitHub</a></p>
+
+  <div class="section-divider"></div>
+
+  <!-- Trims -->
+  <section id="trims" class="py-24 bg-roadster-dark">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Three Versions. One Vision.</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">From road-legal performance to limited-run race machines and an invite-only air-capable variant.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Performance -->
+        <div class="glass rounded-2xl overflow-hidden card-hover border border-white/5">
+          <div class="h-2 bg-gradient-to-r from-roadster-accent to-red-600"></div>
+          <div class="p-8">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-display text-2xl font-bold">Performance</h3>
+              <span class="text-xs font-medium px-3 py-1 rounded-full bg-roadster-accent/20 text-roadster-accent">By Reservation</span>
+            </div>
+            <p class="text-sm text-gray-400 mb-6">Road ready. Seating for two. Active aerodynamics and multi-mode suction system for next-level grip on road and track.</p>
+            
+            <div class="space-y-4 mb-8">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">0–60 mph</span>
+                <span class="font-medium text-white">Under 1.6 s</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Seats</span>
+                <span class="font-medium text-white">2</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Thrusters</span>
+                <span class="font-medium text-white">None (suction only)</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Road legal</span>
+                <span class="font-medium text-green-400">Intended</span>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-white/10">
+              <div class="text-xs text-gray-500 mb-1">Reservation deposit</div>
+              <div class="text-2xl font-display font-bold text-white mb-4">$50,000</div>
+              <p class="text-xs text-gray-500 mb-6">Fully refundable. $5,000 initial + $45,000 within 10 days (official process).</p>
+              <a href="#reserve" class="block w-full text-center btn-primary text-white font-semibold py-3 rounded-full text-sm">
+                Reserve Performance
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thrust -->
+        <div class="glass rounded-2xl overflow-hidden card-hover border border-white/5 relative">
+          <div class="absolute top-4 right-4 text-xs font-medium px-3 py-1 rounded-full bg-roadster-gold/20 text-roadster-gold">Limited</div>
+          <div class="h-2 bg-gradient-to-r from-roadster-gold to-yellow-600"></div>
+          <div class="p-8">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-display text-2xl font-bold">Thrust</h3>
+            </div>
+            <p class="text-sm text-gray-400 mb-6">Race ready. Seating for two. Adds rear-mounted cold-gas thrusters for sub-one-second acceleration.</p>
+            
+            <div class="space-y-4 mb-8">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">0–60 mph</span>
+                <span class="font-medium text-white">Under 0.9 s</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Seats</span>
+                <span class="font-medium text-white">2</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Thrusters</span>
+                <span class="font-medium text-white">Rear (4 nozzles)</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Availability</span>
+                <span class="font-medium text-roadster-gold">Limited release</span>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-white/10">
+              <div class="text-xs text-gray-500 mb-1">Reservation deposit</div>
+              <div class="text-2xl font-display font-bold text-white mb-4">$250,000</div>
+              <p class="text-xs text-gray-500 mb-6">Limited. One per customer. Official process via Tesla.</p>
+              <a href="#reserve" class="block w-full text-center btn-outline text-white font-semibold py-3 rounded-full text-sm">
+                Express Interest
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rocket -->
+        <div class="glass rounded-2xl overflow-hidden card-hover border border-white/5 relative">
+          <div class="absolute top-4 right-4 text-xs font-medium px-3 py-1 rounded-full bg-roadster-cyan/20 text-roadster-cyan">Invite Only</div>
+          <div class="h-2 bg-gradient-to-r from-roadster-cyan to-blue-500"></div>
+          <div class="p-8">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-display text-2xl font-bold">Rocket</h3>
+            </div>
+            <p class="text-sm text-gray-400 mb-6">Air ready. Seating for one. Thrusters around the perimeter. So yes — it can fly. Not approved for public road use.</p>
+            
+            <div class="space-y-4 mb-8">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">0–60 mph</span>
+                <span class="font-medium text-white">Under 0.59 s</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Seats</span>
+                <span class="font-medium text-white">1</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Thrusters</span>
+                <span class="font-medium text-white">Perimeter (10)</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Road legal</span>
+                <span class="font-medium text-red-400">Not approved</span>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-white/10">
+              <div class="text-xs text-gray-500 mb-1">Access</div>
+              <div class="text-2xl font-display font-bold text-white mb-4">Invite Only</div>
+              <p class="text-xs text-gray-500 mb-6">Not available in all regions. Not for public roads.</p>
+              <button disabled class="block w-full text-center bg-white/5 text-gray-500 font-semibold py-3 rounded-full text-sm cursor-not-allowed">
+                Invitation Required
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-xs text-gray-600 mt-10 max-w-3xl mx-auto">
+        All performance figures are Tesla claims from the October 2026 reveal. Final production specifications, pricing, and availability may differ. This site does not accept payments or process real reservations.
+      </p>
     </div>
   </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Reserve / Interest Form -->
+  <section id="reserve" class="py-24 bg-roadster-black">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Reserve Your Place</h2>
+        <p class="text-gray-400">This is a conceptual interest form only. Real reservations are handled exclusively on Tesla’s official website.</p>
+      </div>
+
+      <div class="glass rounded-2xl p-8 md:p-10">
+        <form id="interest-form" class="space-y-6" onsubmit="handleSubmit(event)">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">First Name</label>
+              <input type="text" required class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-roadster-accent transition" placeholder="Elon">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Last Name</label>
+              <input type="text" required class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-roadster-accent transition" placeholder="Musk">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+            <input type="email" required class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-roadster-accent transition" placeholder="you@example.com">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Preferred Trim</label>
+            <select class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-roadster-accent transition">
+              <option value="performance">Performance — $50,000 reservation</option>
+              <option value="thrust">Thrust — Limited ($250,000)</option>
+              <option value="rocket">Rocket — Invite only</option>
+              <option value="updates">Just keep me updated</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Message (optional)</label>
+            <textarea rows="3" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-roadster-accent transition" placeholder="Anything you'd like us to know..."></textarea>
+          </div>
+          <div class="flex items-start gap-3">
+            <input type="checkbox" required id="disclaimer" class="mt-1 rounded border-white/20 bg-black/40 text-roadster-accent focus:ring-roadster-accent">
+            <label for="disclaimer" class="text-xs text-gray-400 leading-relaxed">
+              I understand this is an unofficial concept site. No payment will be taken. Real reservations must be completed on <a href="https://www.tesla.com/roadster" target="_blank" rel="noopener" class="text-roadster-cyan hover:underline">tesla.com/roadster</a>. Performance figures are manufacturer claims.
+            </label>
+          </div>
+          <button type="submit" class="w-full btn-primary text-white font-semibold py-4 rounded-full text-sm tracking-wide">
+            Submit Interest
+          </button>
+        </form>
+        <div id="form-success" class="hidden text-center py-12">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/20 flex items-center justify-center">
+            <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold mb-2">Interest Recorded</h3>
+          <p class="text-gray-400 text-sm">Thank you. This is a conceptual form only. Please visit the official Tesla Roadster page to place a real reservation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Shares / Ownership -->
+  <section id="shares" class="py-24 bg-roadster-dark">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">Own More Than the Car</h2>
+          <p class="text-gray-400 leading-relaxed mb-6">
+            The Roadster is a halo product. Behind it stands Tesla — the company advancing electric vehicles, energy storage, autonomy, and humanoid robotics. Many enthusiasts choose to own both the experience and a stake in the broader mission.
+          </p>
+          <p class="text-gray-400 leading-relaxed mb-8">
+            This section is purely educational. It does not constitute investment advice, a recommendation, or an offer to buy or sell securities.
+          </p>
+          <div class="space-y-4">
+            <a href="https://ir.tesla.com/" target="_blank" rel="noopener" class="flex items-center gap-3 text-roadster-cyan hover:text-white transition group">
+              <span class="w-10 h-10 rounded-full glass flex items-center justify-center group-hover:border-roadster-cyan/50 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </span>
+              <div>
+                <div class="font-medium">Tesla Investor Relations</div>
+                <div class="text-xs text-gray-500">Official financials, filings & events</div>
+              </div>
+            </a>
+            <a href="https://www.tesla.com/investors" target="_blank" rel="noopener" class="flex items-center gap-3 text-roadster-cyan hover:text-white transition group">
+              <span class="w-10 h-10 rounded-full glass flex items-center justify-center group-hover:border-roadster-cyan/50 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </span>
+              <div>
+                <div class="font-medium">Investor Resources</div>
+                <div class="text-xs text-gray-500">Reports, presentations & governance</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-8 space-y-6">
+          <h3 class="font-display text-xl font-semibold">Key Points</h3>
+          <ul class="space-y-4 text-sm text-gray-400">
+            <li class="flex gap-3">
+              <span class="text-roadster-accent font-bold">01</span>
+              <span>Tesla common stock trades on NASDAQ under the ticker <strong class="text-white">TSLA</strong>.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-roadster-accent font-bold">02</span>
+              <span>All investment decisions should be made after independent research and, if needed, professional advice.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-roadster-accent font-bold">03</span>
+              <span>Past performance is not indicative of future results. Equity ownership involves risk of loss.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-roadster-accent font-bold">04</span>
+              <span>This website has no affiliation with Tesla, Inc. and receives no compensation related to share purchases.</span>
+            </li>
+          </ul>
+          <div class="pt-4 border-t border-white/10">
+            <p class="text-xs text-gray-600">
+              For the most current information always refer to official SEC filings and Tesla’s Investor Relations site.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Timeline -->
+  <section id="timeline" class="py-24 bg-roadster-black">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Journey to Production</h2>
+        <p class="text-gray-400">Key milestones as publicly reported.</p>
+      </div>
+
+      <div class="relative">
+        <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-roadster-accent via-white/20 to-transparent transform md:-translate-x-1/2"></div>
+        
+        <div class="space-y-12">
+          <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-roadster-accent transform -translate-x-1.5 md:-translate-x-1.5 ring-4 ring-roadster-black"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0">
+              <div class="text-sm text-roadster-cyan font-medium">November 2017</div>
+              <h4 class="font-semibold text-white mt-1">Original Concept Unveiled</h4>
+              <p class="text-sm text-gray-400 mt-2">First next-gen Roadster prototype shown. Ambitious targets announced.</p>
+            </div>
+            <div class="md:w-1/2 hidden md:block"></div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-white/40 transform -translate-x-1.5 md:-translate-x-1.5 ring-4 ring-roadster-black"></div>
+            <div class="md:w-1/2 hidden md:block"></div>
+            <div class="md:w-1/2 md:pl-12 pl-12">
+              <div class="text-sm text-roadster-cyan font-medium">2018–2025</div>
+              <h4 class="font-semibold text-white mt-1">Development & Delays</h4>
+              <p class="text-sm text-gray-400 mt-2">Multiple target dates shifted as Tesla prioritized volume models and other programs.</p>
+            </div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-roadster-accent transform -translate-x-1.5 md:-translate-x-1.5 ring-4 ring-roadster-black"></div>
+            <div class="md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0">
+              <div class="text-sm text-roadster-cyan font-medium">October 15, 2026</div>
+              <h4 class="font-semibold text-white mt-1">Official Reveal</h4>
+              <p class="text-sm text-gray-400 mt-2">Performance, Thrust & Rocket versions detailed. Live demonstrations of suction and thruster capability. Reservations reopened.</p>
+            </div>
+            <div class="md:w-1/2 hidden md:block"></div>
+          </div>
+
+          <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div class="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-roadster-cyan transform -translate-x-1.5 md:-translate-x-1.5 ring-4 ring-roadster-black animate-pulse"></div>
+            <div class="md:w-1/2 hidden md:block"></div>
+            <div class="md:w-1/2 md:pl-12 pl-12">
+              <div class="text-sm text-roadster-cyan font-medium">2028 (Target)</div>
+              <h4 class="font-semibold text-white mt-1">Production Start</h4>
+              <p class="text-sm text-gray-400 mt-2">Current public target for the start of production. Dates remain subject to change.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-16 bg-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-roadster-accent to-red-800 flex items-center justify-center">
+              <span class="font-display font-bold text-white text-sm">R</span>
+            </div>
+            <span class="font-display font-semibold text-lg tracking-wider">ROADSTER</span>
+          </div>
+          <p class="text-sm text-gray-500 max-w-sm leading-relaxed">
+            An unofficial, sophisticated concept experience celebrating the next-generation Tesla Roadster and the broader Tesla mission. Not affiliated with, endorsed by, or connected to Tesla, Inc.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-4">Explore</h4>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li><a href="#performance" class="hover:text-white transition">Performance</a></li>
+            <li><a href="#trims" class="hover:text-white transition">Trims</a></li>
+            <li><a href="#reserve" class="hover:text-white transition">Reserve Interest</a></li>
+            <li><a href="#shares" class="hover:text-white transition">Shares</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white mb-4">Official Links</h4>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li><a href="https://www.tesla.com/roadster" target="_blank" rel="noopener" class="hover:text-white transition">Tesla Roadster</a></li>
+            <li><a href="https://ir.tesla.com/" target="_blank" rel="noopener" class="hover:text-white transition">Investor Relations</a></li>
+            <li><a href="https://www.tesla.com" target="_blank" rel="noopener" class="hover:text-white transition">Tesla.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-gray-600">
+          © 2026 Unofficial Roadster Concept. All trademarks belong to their respective owners.
+        </p>
+        <p class="text-xs text-gray-600">
+          Performance figures are manufacturer claims. Not financial advice.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('interest-form').classList.add('hidden');
+      document.getElementById('form-success').classList.remove('hidden');
+    }
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('shadow-lg');
+      } else {
+        navbar.classList.remove('shadow-lg');
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.glass').forEach(el => {
+      el.style.opacity = '0';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
